@@ -14,8 +14,9 @@ pipeline {
         }
         stage('Deploy in Staging Environment'){
             steps{
-                sh 'echo code is deployed to production'
-
+               sshagent(['deploy_user']) {
+                 sh "scp -o StrictHostKeyChecking=no java-tomcat-sample/target/java-tomcat-maven-example.war ubuntu@34.214.62.94:/opt/apache-tomcat-8.5.89/webapps"
+                  }
             }
             
         }
